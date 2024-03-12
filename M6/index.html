@@ -89,6 +89,10 @@
                     <div id="loadingBar" class="progress-bar">
                         <div id="progress" class="progress"></div>
                     </div>
+                    <div id="loader-container">
+                      <div id="loader-bar"></div>
+                    </div>
+
                     <div id="pdf-container"></div>
                 </div>
             </section>
@@ -135,7 +139,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script>
         // ระบุ URL ของไฟล์ PDF ที่ต้องการแสดง
-        const pdfUrl = 'https://cdn.discordapp.com/attachments/1014892865589100726/1217026602546888715/66-Hanyu_Jiaocheng_1-2_M.5.pdf?ex=66028759&is=65f01259&hm=5a2e687ba41f5f83605fc9fccaf491b91fabddd43c320dc69e4746651baeb35d&';
+        const pdfUrl = 'M6.pdf';
 
         // เรียกใช้ PDF.js เพื่อโหลดและแสดงเนื้อหา PDF
         pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
@@ -164,9 +168,14 @@
                     };
                     page.render(renderContext);
 
-                    // คำนวณความคืบหน้าและอัปเดตหลอดการแสดงความคืบหน้า
-                    const progress = Math.ceil((i / pdf.numPages) * 100);
-                    updateProgress(progress);
+                             // คำนวณเปอร์เซ็นต์ของการโหลด
+                    const loadingPercentage = (i / pdf.numPages) * 100;
+        
+                    // อัพเดทความกว้างของหลอดโหลด
+                    loaderBar.style.width = loadingPercentage + '%';
+                     if (i === pdf.numPages) {
+                            loaderContainer.style.display = 'none';
+                        }
                 });
             }
         });
