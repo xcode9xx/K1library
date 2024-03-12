@@ -1,0 +1,195 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <!-- 
+    - primary meta tags
+  -->
+    <title>K1library</title>
+    <meta name="title" content="Bookish - Read More And Make Success">
+    <meta name="description" content="Read More And Make Success The Result Of Perfection. - Lorem ipsum dolor sit, amet consectetur adipisicing elit. Ad harum quibusdam, assumenda quia explicabo.">
+
+    <!-- 
+    - favicon
+  -->
+    <link rel="shortcut icon" href="../favicon.svg" type="image/svg+xml">
+
+    <!-- 
+    - custom css link
+  -->
+    <link rel="stylesheet" href="../assets/css/style.css">
+
+    <!-- 
+    - google font link
+  -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Philosopher:wght@400;700&family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
+
+    <!-- 
+    - preload image
+  -->
+    <link rel="preload" as="image" href="../assets/images/char01.png">
+
+</head>
+
+<body>
+
+    <!-- 
+    - #HEADER
+  -->
+
+    <header class="header" data-header>
+        <div class="container">
+
+            <a href="#" class="logo">K1library</a>
+
+            <nav class="navbar" data-navbar>
+                <ul class="navbar-list">
+
+                    <li class="navbar-item">
+                        <a href="../index.html" class="navbar-link" data-nav-link>หน้าหลัก</a>
+                    </li>
+
+
+                </ul>
+            </nav>
+
+            <button class="nav-toggle-btn" aria-label="toggle menu" data-nav-toggler>
+        <ion-icon name="menu-outline" aria-hidden="true" class="open"></ion-icon>
+
+        <ion-icon name="close-outline" aria-hidden="true" class="close"></ion-icon>
+      </button>
+
+        </div>
+    </header>
+
+
+
+
+
+    <main>
+        <article>
+
+
+
+            <section class="section preview" aria-label="preview">
+                <div class="container">
+                    <br>
+                    <p class="section-subtitle">บทเรียนทั้งหมดของชั้น ม.6</p>
+                    <br>
+                    <h2 class="h2 section-title has-underline">
+
+                        <span class="span has-before"> </span>
+                    </h2>
+                    <div id="loadingBar" class="progress-bar">
+                        <div id="progress" class="progress"></div>
+                    </div>
+                    <div id="pdf-container"></div>
+                </div>
+            </section>
+
+
+        </article>
+    </main>
+
+
+
+
+
+    <!-- 
+    - #FOOTER
+  -->
+
+    <footer class="footer">
+        <div class="container">
+
+            <div class="footer-top">
+
+                <a href="#" class="logo">K1library</a>
+                <p class="section-text">
+                    นาย วชิรวิทย์ วงค์แสง - ผู้พัฒนา <br> คุณครู รัตนาพร สอนแสง - ผู้ดูแลการพัฒนา
+                </p>
+                <ul class="footer-list">
+
+
+                </ul>
+
+            </div>
+
+            <div class="footer-bottom">
+                <p class="copyright">
+                    &copy; 2023 All right reserved. Made with ❤ by K1Dev
+                </p>
+            </div>
+
+        </div>
+    </footer>
+
+
+
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
+    <script>
+        // ระบุ URL ของไฟล์ PDF ที่ต้องการแสดง
+        const pdfUrl = 'https://cdn.discordapp.com/attachments/1014892865589100726/1217026602546888715/66-Hanyu_Jiaocheng_1-2_M.5.pdf?ex=66028759&is=65f01259&hm=5a2e687ba41f5f83605fc9fccaf491b91fabddd43c320dc69e4746651baeb35d&';
+
+        // เรียกใช้ PDF.js เพื่อโหลดและแสดงเนื้อหา PDF
+        pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
+            // วนลูปผ่านหน้าทั้งหมดและโหลดเนื้อหาลงใน Canvas ของแต่ละหน้า
+            for (let i = 1; i <= pdf.numPages; i++) {
+                pdf.getPage(i).then(page => {
+                    // กำหนดขนาดของหน้า PDF
+                    const viewport = page.getViewport({
+                        scale: 1.5
+                    });
+
+                    // สร้าง Canvas สำหรับแต่ละหน้า PDF
+                    const canvas = document.createElement('canvas');
+                    const context = canvas.getContext('2d');
+                    canvas.height = viewport.height;
+                    canvas.width = viewport.width;
+
+                    // เพิ่ม Canvas ลงใน HTML
+                    const container = document.getElementById('pdf-container');
+                    container.appendChild(canvas);
+
+                    // เรียกใช้ render จาก PDF.js เพื่อแสดงเนื้อหาบน Canvas
+                    const renderContext = {
+                        canvasContext: context,
+                        viewport: viewport
+                    };
+                    page.render(renderContext);
+
+                    // คำนวณความคืบหน้าและอัปเดตหลอดการแสดงความคืบหน้า
+                    const progress = Math.ceil((i / pdf.numPages) * 100);
+                    updateProgress(progress);
+                });
+            }
+        });
+
+
+        // ฟังก์ชันอัปเดตความคืบหน้าของหลอดการแสดงความคืบหน้า
+        function updateProgress(progress) {
+            const progressBar = document.getElementById('progress');
+            progressBar.style.width = progress + '%';
+        }
+    </script>
+    <!-- 
+    - custom js link
+  -->
+    <script src="./assets/js/script.js" defer></script>
+
+    <!-- 
+    - ionicon link
+  -->
+
+    <script type="module" src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.esm.js"></script>
+    <script nomodule src="https://unpkg.com/ionicons@5.5.2/dist/ionicons/ionicons.js"></script>
+
+</body>
+
+</html>
