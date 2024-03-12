@@ -383,6 +383,20 @@ body {
     display: block;
 }
 
+
+#loader-container {
+  width: 100%;
+  height: 10px;
+  background-color: #f0f0f0; /* สีพื้นหลังของหลอดโหลด */
+  margin-bottom: 20px;
+}
+
+#loader-bar {
+  height: 100%;
+  background-color: #4caf50; /* สีของหลอดโหลด */
+  width: 0%; /* กำหนดเป็น 0% เพื่อเริ่มต้น */
+}
+
 .navbar {
     position: absolute;
     top: 100%;
