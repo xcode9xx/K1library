@@ -165,6 +165,15 @@
                         viewport: viewport
                     };
                     page.render(renderContext);
+    
+                             // คำนวณเปอร์เซ็นต์ของการโหลด
+                        const loadingPercentage = (i / pdf.numPages) * 100;
+            
+                        // อัพเดทความกว้างของหลอดโหลด
+                        loaderBar.style.width = loadingPercentage + '%';
+                         if (i === pdf.numPages) {
+                                loaderContainer.style.display = 'none';
+                            }
                 });
             }
         });
