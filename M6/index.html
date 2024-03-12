@@ -84,13 +84,9 @@
                     <h2 class="h2 section-title has-underline">
 
                         <span class="span has-before"> </span>
+                                   <span id="loadder">กำลังโหลด...</span>
                     </h2>
-                    <div id="loadingBar" class="progress-bar">
-                        <div id="progress" class="progress"></div>
-                    </div>
-                    <div id="loader-container">
-                      <div id="loader-bar"></div>
-                    </div>
+               
 
                     <div id="pdf-container"></div>
                 </div>
@@ -140,8 +136,9 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script>
         // ระบุ URL ของไฟล์ PDF ที่ต้องการแสดง
+        
         const pdfUrl = 'M6.pdf';
-
+        const loaderContainer = document.getElementById('loadder');
         // เรียกใช้ PDF.js เพื่อโหลดและแสดงเนื้อหา PDF
         pdfjsLib.getDocument(pdfUrl).promise.then(pdf => {
             // วนลูปผ่านหน้าทั้งหมดและโหลดเนื้อหาลงใน Canvas ของแต่ละหน้า
@@ -168,13 +165,7 @@
                         viewport: viewport
                     };
                     page.render(renderContext);
-
-                             // คำนวณเปอร์เซ็นต์ของการโหลด
-                    const loadingPercentage = (i / pdf.numPages) * 100;
-        
-                    // อัพเดทความกว้างของหลอดโหลด
-                    loaderBar.style.width = loadingPercentage + '%';
-                     if (i === pdf.numPages) {
+                      if (i === pdf.numPages) {
                             loaderContainer.style.display = 'none';
                         }
                 });
