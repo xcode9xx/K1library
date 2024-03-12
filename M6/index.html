@@ -10,7 +10,7 @@
     - primary meta tags
   -->
     <title>K1library</title>
-     <meta name="title" content="K1library - KCK">
+    <meta name="title" content="K1library - KCK">
     <meta name="description" content="สื่อการสอนออนไลน์สำหรับรายวิชา ภาษาจีน - โรงเรียนเขื่อนช้างวิทยาคาร">
     <!-- 
     - favicon
@@ -84,11 +84,12 @@
                     <h2 class="h2 section-title has-underline">
 
                         <span class="span has-before"> </span>
-                                   <span id="loadder">กำลังโหลด...</span>
+                        <span id="loadder">กำลังโหลด...</span>
                     </h2>
-               
 
                     <div id="pdf-container"></div>
+
+
                 </div>
             </section>
 
@@ -111,9 +112,8 @@
 
                 <a href="#" class="logo">K1library</a>
                 <p class="section-text">
-                ห้องสมุดออนไลน์ภาษาจีน โรงเรียนเขื่อนช้างวิทยาคาร 
-                    <br>
-                    นาย วชิรวิทย์ วงค์แสง - ผู้พัฒนา <br> คุณครู รัตนาพร สอนแสง - ผู้ดูแลการพัฒนา
+                    ห้องสมุดออนไลน์ภาษาจีน โรงเรียนเขื่อนช้างวิทยาคาร
+                    <br> นาย วชิรวิทย์ วงค์แสง - ผู้พัฒนา <br> คุณครู รัตนาพร สอนแสง - ผู้ดูแลการพัฒนา
                 </p>
                 <ul class="footer-list">
 
@@ -136,7 +136,6 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/2.11.338/pdf.min.js"></script>
     <script>
         // ระบุ URL ของไฟล์ PDF ที่ต้องการแสดง
-        
         const pdfUrl = 'M6.pdf';
         const loaderContainer = document.getElementById('loadder');
         // เรียกใช้ PDF.js เพื่อโหลดและแสดงเนื้อหา PDF
@@ -165,19 +164,12 @@
                         viewport: viewport
                     };
                     page.render(renderContext);
-                      if (i === pdf.numPages) {
-                            loaderContainer.style.display = 'none';
-                        }
+                    if (i === pdf.numPages) {
+                        loaderContainer.style.display = 'none';
+                    }
                 });
             }
         });
-
-
-        // ฟังก์ชันอัปเดตความคืบหน้าของหลอดการแสดงความคืบหน้า
-        function updateProgress(progress) {
-            const progressBar = document.getElementById('progress');
-            progressBar.style.width = progress + '%';
-        }
     </script>
     <!-- 
     - custom js link
